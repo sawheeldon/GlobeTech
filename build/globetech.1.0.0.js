@@ -49,6 +49,24 @@
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(34);
 	
+	// storing the logos in a global variable
+	
+	var techLogos = {
+	  mashable: '../images/mashable.png',
+	  ars: '../images/Ars.svg.png',
+	  recode: '../images/recode.svg.png',
+	  verge: '../images/verge.png'
+	};
+	
+	function coinToss() {
+	  // Randomly return either 'heads' or 'tails'.
+	  return Math.random() < 0.5 ? 'heads' : 'tails';
+	}
+	
+	var imageLogo = React.createElement('img', { src: techLogos[coinToss() == 'heads' ? 'mashable' : 'ars'] });
+	
+	//test to make sure React is working
+	
 	var Test = React.createClass({
 	  displayName: 'Test',
 	
@@ -56,38 +74,14 @@
 	    return React.createElement(
 	      'h1',
 	      null,
-	      'Hello world'
+	      'Hello world, testing the React Link'
 	    );
 	  }
 	});
-	// var text = <p>Hello World</p>;
-	
-	// var test = function () {
-	//     render: function ()return 
-	//         <div>{text}<div>
-	// };
-	
-	
-	// var test = function ()
-	//         return ( 
-	//             <div>
-	//             <p> Hello World </p>
-	//             </div>
-	//             );
-	// };
-	
-	// var test = <p> Hello World </p>;
-	
-	// var test = React.createClass ({
-	//     render: function ({
-	//         return (
-	//             <p>Hello World </p>
-	//             );
-	//     })
-	// });
 	
 	document.addEventListener('DOMContentLoaded', function () {
 	  ReactDOM.render(React.createElement(Test, null), document.getElementById('app'));
+	  ReactDOM.render(imageLogo, document.getElementById('logo'));
 	});
 
 /***/ },
