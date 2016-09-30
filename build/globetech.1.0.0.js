@@ -48,53 +48,30 @@
 	
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(34);
-	
-	// array to store the images
-	
-	var techLogos = ['../images/verge.png', '../images/mashable.png', '../images/Recode.svg.png', '../images/TechRadar.png'];
-	
-	// loop for logo
-	
-	var FrontLogos = function FrontLogos() {
-	    var outPut = "";
-	    for (var i = 0; i < techLogos.length; i++) {
-	        setTimeout(function () {
-	            techLogos(i);
-	        }, 100);
-	        outPut = techLogos[i];
-	    }
-	};
-	
-	// function coinToss () {
-	//   // Randomly return either 'heads' or 'tails'.
-	//   return Math.random() < 0.5 ? 'heads' : 'tails';
-	// }
-	
-	// var imageLogo = <img src={techLogos[coinToss()=='heads' ? 'mashable' : 'ars']} />;
-	
+	var FrontLogos = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../logos.js\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 	
 	//test to make sure React is working
 	
-	var Test = React.createClass({
-	    displayName: 'Test',
+	var TitlePage = React.createClass({
+	  displayName: 'TitlePage',
 	
-	    render: function render() {
-	        return React.createElement(
-	            'div',
-	            null,
-	            React.createElement(
-	                'h1',
-	                null,
-	                'Hello world, testing the React Link'
-	            ),
-	            React.createElement('img', { height: '100', src: techLogos[FrontLogos()] })
-	        );
-	    }
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'h1',
+	        null,
+	        'Hello world, testing the React Link'
+	      ),
+	      React.createElement('img', { height: '100', src: FrontLogos })
+	    );
+	  }
 	});
 	
 	document.addEventListener('DOMContentLoaded', function () {
-	    ReactDOM.render(React.createElement(Test, null), document.getElementById('app'));
-	    // ReactDOM.render(imageLogo, document.getElementById('logo'));
+	  ReactDOM.render(React.createElement(TitlePage, null), document.getElementById('app'));
+	  // ReactDOM.render(imageLogo, document.getElementById('logo'));
 	});
 
 /***/ },
