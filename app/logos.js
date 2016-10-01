@@ -3,7 +3,7 @@ var ReactDOM = require('react-dom');
 
 // array to store the images
 
-var techLogos = ['../images/verge.png', '../images/mashable.png', '../images/Recode.svg.png', '../images/TechRadar.png'];
+var techLogos = ['./images/verge.png', './images/mashable.png', './images/Recode.svg.png', './images/TechRadar.png'];
 
 // loop for logos
 
@@ -16,3 +16,4 @@ var FrontLogos = function() {
 };
 
 module.exports = FrontLogos;
+module.exports = techLogos;

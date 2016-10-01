@@ -1,8 +1,7 @@
 var path = require('path');
-
 var webpack = require('webpack');
-
 var packageData = require('./package.json');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var filename = [packageData.name, packageData.version, 'js'];
 
@@ -25,4 +24,5 @@ var filename = [packageData.name, packageData.version, 'js'];
                           }
                       ]
                   }
+                  
               };

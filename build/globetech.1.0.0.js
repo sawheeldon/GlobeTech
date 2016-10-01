@@ -48,30 +48,83 @@
 	
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(34);
-	var FrontLogos = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../logos.js\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var FrontLogos = __webpack_require__(172);
+	// var Button = React.createFactory(require('./app/button'));
 	
-	//test to make sure React is working
+	
+	//first page shown to user on arrival to page
 	
 	var TitlePage = React.createClass({
-	  displayName: 'TitlePage',
+	    displayName: 'TitlePage',
 	
-	  render: function render() {
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(
-	        'h1',
-	        null,
-	        'Hello world, testing the React Link'
-	      ),
-	      React.createElement('img', { height: '100', src: FrontLogos })
-	    );
-	  }
+	    getInitialState: function getInitialState() {
+	        return { showResults: false };
+	    },
+	    onClick: function onClick() {
+	        this.setState({ showResults: true });
+	    },
+	    render: function render() {
+	        var heading = function heading() {
+	            return React.createElement(
+	                'div',
+	                { className: 'title' },
+	                React.createElement(
+	                    'h1',
+	                    null,
+	                    'GlobeTech'
+	                ),
+	                React.createElement(
+	                    'h2',
+	                    null,
+	                    'Your one stop shop for all news tech!'
+	                ),
+	                React.createElement('img', { height: '100', src: FrontLogos })
+	            );
+	        };
+	        if (this.props.onClick === true) {
+	            heading = "displayNone";
+	        } else {
+	            MainPage = "displayNone";
+	        }
+	        return React.createElement(
+	            'div',
+	            { key: 'titlePage' },
+	            React.createElement(
+	                'div',
+	                null,
+	                heading
+	            ),
+	            React.createElement('input', { type: 'submit', className: 'btn btn-primary', onClick: this.onClick }),
+	            this.state.showResults ? React.createElement(MainPage, null) : null
+	        );
+	    }
 	});
 	
+	var MainPage = React.createClass({
+	    displayName: 'MainPage',
+	
+	    render: function render() {
+	        return React.createElement(
+	            'div',
+	            { id: 'MainPage', className: 'main-page' },
+	            React.createElement(
+	                'h1',
+	                null,
+	                'GlobeTech'
+	            ),
+	            React.createElement(
+	                'h2',
+	                null,
+	                'Take a look at our brilliant news links below!'
+	            )
+	        );
+	    }
+	});
+	
+	//find ids and renders DOM
+	
 	document.addEventListener('DOMContentLoaded', function () {
-	  ReactDOM.render(React.createElement(TitlePage, null), document.getElementById('app'));
-	  // ReactDOM.render(imageLogo, document.getElementById('logo'));
+	    ReactDOM.render(React.createElement(TitlePage, null), document.getElementById('TitlePage'));
 	});
 
 /***/ },
@@ -21440,6 +21493,34 @@
 	
 	module.exports = ReactDOMNullInputValuePropHook;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ },
+/* 172 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var ReactDOM = __webpack_require__(34);
+	
+	// array to store the images
+	
+	var techLogos = ['./images/verge.png', './images/mashable.png', './images/Recode.svg.png', './images/TechRadar.png'];
+	
+	// loop for logos
+	
+	var FrontLogos = function FrontLogos() {
+	    var outPut = "";
+	    for (var i = 0; i < techLogos.length; i++) {
+	        setTimeout(function () {
+	            techLogos(i);
+	        }, 100);
+	        outPut = techLogos[i];
+	    }
+	};
+	
+	module.exports = FrontLogos;
+	module.exports = techLogos;
 
 /***/ }
 /******/ ]);
