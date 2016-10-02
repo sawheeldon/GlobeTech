@@ -1,7 +1,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var FrontLogos = require('./app/logos');
-// var Button = React.createFactory(require('./app/button'));
+var TechCrunch = React.createFactory(require('./app/apicall'));
 
 
 //first page shown to user on arrival to page
@@ -22,16 +22,16 @@ var TitlePage = React.createClass({
                 <img height="100" src={FrontLogos} />
                 </div>
                 );
-        }
+        };
          if(this.props.onClick === true){
-            heading = "displayNone";
+            this.state.showResults ? <heading /> : "displayNone";
         }
         else{
-            MainPage = "displayNone";
+            console.log('blah');
         }
         return (
-            <div key="titlePage">
-                <div>{heading}</div>
+            <div>
+                <div id="titlePage"> {heading()} </div>
                 <input type="submit" className="btn btn-primary" onClick={this.onClick} />
                 { this.state.showResults ? <MainPage /> : null }
             </div>
@@ -40,11 +40,15 @@ var TitlePage = React.createClass({
 });
 
 var MainPage = React.createClass({
+    onClick: function(){
+      return TechCrunch;  
+    },
     render: function() {
         return (
             <div id="MainPage" className="main-page">
                 <h1>GlobeTech</h1>
                 <h2>Take a look at our brilliant news links below!</h2>
+                <button className="btn btn-danger" onClick={this.onClick}>TechCrunch</button>
             </div>
         );
     }
