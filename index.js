@@ -6,23 +6,15 @@ var TechCrunch = React.createFactory(require('./app/apicall'));
 
 //first page shown to user on arrival to page
 
-var TitlePage = React.createClass({
+var App = React.createClass({
     getInitialState: function() {
         return { showResults: false };
     },
     onClick: function() {
         this.setState({ showResults: true });
+        this.hide("titlePage");
     },
     render: function() {
-        var heading = function() {
-            return (
-                <div className="title">
-                <h1>GlobeTech</h1>
-                <h2>Your one stop shop for all news tech!</h2>
-                <img height="100" src={FrontLogos} />
-                </div>
-                );
-        };
          if(this.props.onClick === true){
             this.state.showResults ? <heading /> : "displayNone";
         }
@@ -31,7 +23,7 @@ var TitlePage = React.createClass({
         }
         return (
             <div>
-                <div id="titlePage"> {heading()} </div>
+                <div className="titlePage"> {TitlePage} </div>
                 <input type="submit" className="btn btn-primary" onClick={this.onClick} />
                 { this.state.showResults ? <MainPage /> : null }
             </div>
@@ -39,6 +31,19 @@ var TitlePage = React.createClass({
     }
 });
 
+var TitlePage = React.createClass({
+    render: function () {
+            return (
+                <div className="titlePage">
+                <h1>GlobeTech</h1>
+                <h2>Your one stop shop for all news tech!</h2>
+                <img height="100" src={FrontLogos} />
+                </div>
+                );
+            }
+    });
+    
+    
 var MainPage = React.createClass({
     onClick: function(){
       return TechCrunch;  
@@ -58,5 +63,5 @@ var MainPage = React.createClass({
 //find ids and renders DOM
 
 document.addEventListener('DOMContentLoaded', function() {
-    ReactDOM.render(<TitlePage />, document.getElementById('TitlePage'));
+    ReactDOM.render(<App />, document.getElementById('TitlePage'));
 });
