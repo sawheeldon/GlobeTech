@@ -53,50 +53,52 @@
 	
 	//first page shown to user on arrival to page
 	
-	var TitlePage = React.createClass({
-	    displayName: 'TitlePage',
+	var App = React.createClass({
+	    displayName: 'App',
 	
 	    getInitialState: function getInitialState() {
 	        return { showResults: false };
 	    },
 	    onClick: function onClick() {
 	        this.setState({ showResults: true });
+	        $('.titlePage').hide();
+	        $('.submitButton').hide();
 	    },
 	    render: function render() {
-	        var heading = function heading() {
-	            return React.createElement(
-	                'div',
-	                { className: 'title' },
-	                React.createElement(
-	                    'h1',
-	                    null,
-	                    'GlobeTech'
-	                ),
-	                React.createElement(
-	                    'h2',
-	                    null,
-	                    'Your one stop shop for all news tech!'
-	                ),
-	                React.createElement('img', { height: '100', src: FrontLogos })
-	            );
-	        };
-	        if (this.props.onClick === true) {
-	            this.state.showResults ? React.createElement('heading', null) : "displayNone";
-	        } else {
-	            console.log('blah');
-	        }
 	        return React.createElement(
 	            'div',
 	            null,
 	            React.createElement(
 	                'div',
-	                { id: 'titlePage' },
+	                { className: 'titlePage' },
 	                ' ',
-	                heading(),
+	                React.createElement(TitlePage, null),
 	                ' '
 	            ),
-	            React.createElement('input', { type: 'submit', className: 'btn btn-primary', onClick: this.onClick }),
+	            React.createElement('input', { type: 'submit', className: 'btn btn-primary submitButton', onClick: this.onClick }),
 	            this.state.showResults ? React.createElement(MainPage, null) : null
+	        );
+	    }
+	});
+	
+	var TitlePage = React.createClass({
+	    displayName: 'TitlePage',
+	
+	    render: function render() {
+	        return React.createElement(
+	            'div',
+	            { className: 'titlePage' },
+	            React.createElement(
+	                'h1',
+	                null,
+	                'GlobeTech'
+	            ),
+	            React.createElement(
+	                'h2',
+	                null,
+	                'Your one stop shop for all news tech!'
+	            ),
+	            React.createElement('img', { height: '100', src: FrontLogos })
 	        );
 	    }
 	});
@@ -104,9 +106,6 @@
 	var MainPage = React.createClass({
 	    displayName: 'MainPage',
 	
-	    onClick: function onClick() {
-	        return TechCrunch;
-	    },
 	    render: function render() {
 	        return React.createElement(
 	            'div',
@@ -133,7 +132,7 @@
 	//find ids and renders DOM
 	
 	document.addEventListener('DOMContentLoaded', function () {
-	    ReactDOM.render(React.createElement(TitlePage, null), document.getElementById('TitlePage'));
+	    ReactDOM.render(React.createElement(App, null), document.getElementById('TitlePage'));
 	});
 
 /***/ },

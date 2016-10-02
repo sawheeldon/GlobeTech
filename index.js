@@ -12,19 +12,14 @@ var App = React.createClass({
     },
     onClick: function() {
         this.setState({ showResults: true });
-        this.hide("titlePage");
+        $('.titlePage').hide();
+        $('.submitButton').hide();
     },
     render: function() {
-         if(this.props.onClick === true){
-            this.state.showResults ? <heading /> : "displayNone";
-        }
-        else{
-            console.log('blah');
-        }
         return (
             <div>
-                <div className="titlePage"> {TitlePage} </div>
-                <input type="submit" className="btn btn-primary" onClick={this.onClick} />
+                <div className="titlePage"> <TitlePage/> </div>
+                <input type="submit" className="btn btn-primary submitButton" onClick={this.onClick} />
                 { this.state.showResults ? <MainPage /> : null }
             </div>
         );
@@ -45,9 +40,6 @@ var TitlePage = React.createClass({
     
     
 var MainPage = React.createClass({
-    onClick: function(){
-      return TechCrunch;  
-    },
     render: function() {
         return (
             <div id="MainPage" className="main-page">
