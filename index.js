@@ -1,7 +1,10 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+var redux = require('redux');
 var FrontLogos = require('./app/logos');
 var TechCrunch = React.createFactory(require('./app/apicall'));
+var fetch  = require('isomorphic-fetch');
+
 
 
 //first page shown to user on arrival to page
@@ -18,7 +21,7 @@ var App = React.createClass({
     render: function() {
         return (
             <div>
-                <div className="titlePage"> <TitlePage/> </div>
+                <div> <TitlePage/> </div>
                 <input type="submit" className="btn btn-primary submitButton" onClick={this.onClick} />
                 { this.state.showResults ? <MainPage /> : null }
             </div>
@@ -32,7 +35,7 @@ var TitlePage = React.createClass({
                 <div className="titlePage">
                 <h1>GlobeTech</h1>
                 <h2>Your one stop shop for all news tech!</h2>
-                <img height="100" src={FrontLogos} />
+                    <img className="rotating-item" src={FrontLogos} />
                 </div>
                 );
             }
@@ -40,6 +43,10 @@ var TitlePage = React.createClass({
     
     
 var MainPage = React.createClass({
+    onClick: function(){
+        $('.main-page').hide();
+        return TechCrunch;
+    },
     render: function() {
         return (
             <div id="MainPage" className="main-page">
@@ -55,5 +62,5 @@ var MainPage = React.createClass({
 //find ids and renders DOM
 
 document.addEventListener('DOMContentLoaded', function() {
-    ReactDOM.render(<App />, document.getElementById('TitlePage'));
+    ReactDOM.render(<App />, document.getElementById('PageWrapper'));
 });

@@ -22,7 +22,10 @@ var filename = [packageData.name, packageData.version, 'js'];
                                   presets: ['es2015', 'react']
                               }
                           }
-                      ]
+                         
+                        ]
+
                   }
+                  
                   
               };
