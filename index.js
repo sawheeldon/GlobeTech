@@ -22,7 +22,9 @@ var App = React.createClass({
         return (
             <div>
                 <div> <TitlePage/> </div>
+                <div className="col-xs-12">
                 <input type="submit" className="btn btn-primary submitButton" onClick={this.onClick} />
+                </div>
                 { this.state.showResults ? <MainPage /> : null }
             </div>
         );
@@ -32,7 +34,7 @@ var App = React.createClass({
 var TitlePage = React.createClass({
     render: function () {
             return (
-                <div className="titlePage">
+                <div className="container col-xs-12 titlePage">
                 <h1>GlobeTech</h1>
                 <h2>Your one stop shop for all news tech!</h2>
                     <img className="rotating-item" src={FrontLogos} />
@@ -44,15 +46,26 @@ var TitlePage = React.createClass({
     
 var MainPage = React.createClass({
     onClick: function(){
+        if ('#tech-crunch'){
         $('.main-page').hide();
-        return TechCrunch;
+        }
+        else if ('#recode'){
+            $('#tech-crunch').hide();
+        }
+        else{
+            console.log("nothing happened");
+        }
     },
     render: function() {
         return (
             <div id="MainPage" className="main-page">
                 <h1>GlobeTech</h1>
                 <h2>Take a look at our brilliant news links below!</h2>
-                <button className="btn btn-danger" onClick={this.onClick}>TechCrunch</button>
+                <button key="tech-crunch" className="btn btn-success test" onClick={this.onClick}>TechCrunch</button>
+                <button className="btn btn-warning" onClick={this.onClick}>The Verge</button>
+                <button key="recode" className="btn btn-danger test-test"  onClick={this.onClick}>Recode</button>
+                <button className="btn btn-primary" onClick={this.onClick}>Mashable</button>
+                <button className="btn btn-default" onClick={this.onClick}>TechRadar</button>
             </div>
         );
     }

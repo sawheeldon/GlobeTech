@@ -34,6 +34,9 @@ var TechCrunch = function (data) {
             }
             return response;
         })
+        .then(function(response) {
+            return response.json();
+        })
     };
 };
     

@@ -26,11 +26,13 @@ General styles (General Module, wrapping around the modules bellow)
 body {
   font-family: arial;
   text-align: center;
+  font-size: 20px;
 }
 h1 {
   font-size: 100px;
 }
 .rotating-item {
-  height: 100px;
+  height: 70px;
+  align: center;
 }
 /*# sourceMappingURL=globetech.1.0.0.css.map */

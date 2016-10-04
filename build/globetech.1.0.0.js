@@ -77,7 +77,11 @@
 	                React.createElement(TitlePage, null),
 	                ' '
 	            ),
-	            React.createElement('input', { type: 'submit', className: 'btn btn-primary submitButton', onClick: this.onClick }),
+	            React.createElement(
+	                'div',
+	                { className: 'col-xs-12' },
+	                React.createElement('input', { type: 'submit', className: 'btn btn-primary submitButton', onClick: this.onClick })
+	            ),
 	            this.state.showResults ? React.createElement(MainPage, null) : null
 	        );
 	    }
@@ -89,7 +93,7 @@
 	    render: function render() {
 	        return React.createElement(
 	            'div',
-	            { className: 'titlePage' },
+	            { className: 'container col-xs-12 titlePage' },
 	            React.createElement(
 	                'h1',
 	                null,
@@ -109,8 +113,13 @@
 	    displayName: 'MainPage',
 	
 	    onClick: function onClick() {
-	        $('.main-page').hide();
-	        return TechCrunch;
+	        if ('#tech-crunch') {
+	            $('.main-page').hide();
+	        } else if ('#recode') {
+	            $('#tech-crunch').hide();
+	        } else {
+	            console.log("nothing happened");
+	        }
 	    },
 	    render: function render() {
 	        return React.createElement(
@@ -128,8 +137,28 @@
 	            ),
 	            React.createElement(
 	                'button',
-	                { className: 'btn btn-danger', onClick: this.onClick },
+	                { key: 'tech-crunch', className: 'btn btn-success test', onClick: this.onClick },
 	                'TechCrunch'
+	            ),
+	            React.createElement(
+	                'button',
+	                { className: 'btn btn-warning', onClick: this.onClick },
+	                'The Verge'
+	            ),
+	            React.createElement(
+	                'button',
+	                { key: 'recode', className: 'btn btn-danger test-test', onClick: this.onClick },
+	                'Recode'
+	            ),
+	            React.createElement(
+	                'button',
+	                { className: 'btn btn-primary', onClick: this.onClick },
+	                'Mashable'
+	            ),
+	            React.createElement(
+	                'button',
+	                { className: 'btn btn-default', onClick: this.onClick },
+	                'TechRadar'
 	            )
 	        );
 	    }
@@ -22384,9 +22413,21 @@
 	
 	var techLogos = ['./images/verge.png', './images/mashable.png', './images/Recode.png', './images/TechRadar.png'];
 	
+	// var FrontLogos = function (Logos) {
+	//             return (
+	//                 <div> {Logos} </div>
+	//                 );
+	//             };
+	
 	// loop for logos
 	
 	var FrontLogos = function FrontLogos(techLogos) {
+	    // var techLogos =  ['./images/verge.png', './images/mashable.png', './images/Recode.png', './images/TechRadar.png'];
+	    // var outPut = '';
+	    // for (var i=0; i < techLogos.length; i++) {
+	    // outPut.push(FrontLogos());
+	    // }
+	    // return (techLogos);
 	    var outPut = "";
 	    for (var i = 0; i < techLogos.length; i++) {
 	        setTimeout(function () {
@@ -22395,7 +22436,7 @@
 	        outPut = techLogos[i];
 	    }
 	    // return techLogos[0];
-	    return techLogos;
+	    return outPut;
 	};
 	
 	module.exports = FrontLogos(techLogos);
@@ -22442,6 +22483,8 @@
 	                throw error;
 	            }
 	            return response;
+	        }).then(function (response) {
+	            return response.json();
 	        });
 	    };
 	};
