@@ -1,3 +1,5 @@
+  @import 'https://fonts.googleapis.com/css?family=Amatic+SC|Audiowide|Indie+Flower|Luckiest+Guy|Press+Start+2P|Sue+Ellen+Francisco';
+  
         /* -------------------------------------
 CSS reset
 (all the browsers will see the website in the same by setting every tag to 0 (the website will look the same on all browsers))
@@ -26,15 +28,46 @@ General styles (General Module, wrapping around the modules bellow)
 */
 
     body {
-        font-family:arial;
+        font-family: 'Audiowide', cursive;
         text-align:center;
-        font-size:20px
+        font-size:25px;
+        background-color:aliceblue;
+        
     }
     
     h1{
         font-size:100px;
+        font-family: 'Press Start 2P', cursive;
     }
-    .rotating-item {
-        height:70px;
-        align:center;
+    .techButtons{
+        padding:1.2rem;
+        margin-top:1.2rem;
     }
+    .rotating-item{
+        height:150px;
+    }
+    .submitButton{
+        padding:1rem;
+        margin-top:5rem;
+    }
+
+
+@media only screen and (max-width: 768px) {
+            h1{
+                font-size:40px;
+            }
+            h2{
+                font-size:30px
+            }
+        }
+@media only screen and (max-width: 480px) {
+    body{
+        font-size:20px;
+    }
+              h1{
+                font-size:30px;
+            }
+             h2{
+                font-size:25px
+            }
+        }        

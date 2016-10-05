@@ -49,11 +49,11 @@
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(34);
 	var redux = __webpack_require__(172);
-	var FrontLogos = __webpack_require__(186);
-	var TechCrunch = React.createFactory(__webpack_require__(187));
-	var fetch = __webpack_require__(193);
+	// var FrontLogos = require('./app/logos');
+	var fetch = __webpack_require__(186);
+	var TechCrunchApi = __webpack_require__(188);
 	
-	//first page shown to user on arrival to page
+	//app function which shows the first page setting the state of the first button
 	
 	var App = React.createClass({
 	    displayName: 'App',
@@ -87,6 +87,8 @@
 	    }
 	});
 	
+	//title page function which creates the title page content
+	
 	var TitlePage = React.createClass({
 	    displayName: 'TitlePage',
 	
@@ -104,65 +106,269 @@
 	                null,
 	                'Your one stop shop for all news tech!'
 	            ),
-	            React.createElement('img', { className: 'rotating-item', src: FrontLogos })
+	            React.createElement('div', { className: 'col-lg-4 col-md-4 col-sm-4 col-xs-12' }),
+	            React.createElement(
+	                'div',
+	                { className: 'col-lg-4 col-md-4 col-sm-4 col-xs-12' },
+	                React.createElement(
+	                    'div',
+	                    { id: 'my-slider', className: 'carousel slide', 'data-ride': 'carousel' },
+	                    React.createElement(
+	                        'div',
+	                        { className: 'carousel-inner' },
+	                        React.createElement(
+	                            'div',
+	                            { className: 'item active rotating-item' },
+	                            React.createElement('img', { src: './images/crunch.png', alt: '' })
+	                        ),
+	                        React.createElement(
+	                            'div',
+	                            { className: 'item rotating-item' },
+	                            React.createElement('img', { src: './images/verge.png', alt: '' })
+	                        ),
+	                        React.createElement(
+	                            'div',
+	                            { className: 'item rotating-item' },
+	                            React.createElement('img', { src: './images/Recode.png', alt: '' })
+	                        ),
+	                        React.createElement(
+	                            'div',
+	                            { className: 'item rotating-item' },
+	                            React.createElement('img', { src: './images/mashable.png', alt: '' })
+	                        ),
+	                        React.createElement(
+	                            'div',
+	                            { className: 'item rotating-item' },
+	                            React.createElement('img', { src: './images/TechRadar.png', alt: '' })
+	                        )
+	                    )
+	                )
+	            ),
+	            React.createElement('div', { className: 'col-lg-4 col-md-4 col-sm-4 col-xs-12' })
 	        );
 	    }
 	});
 	
+	// main page function which shows and hides all the pages.
+	
 	var MainPage = React.createClass({
 	    displayName: 'MainPage',
 	
-	    onClick: function onClick() {
-	        if ('#tech-crunch') {
-	            $('.main-page').hide();
-	        } else if ('#recode') {
-	            $('#tech-crunch').hide();
-	        } else {
-	            console.log("nothing happened");
-	        }
+	    getInitialState: function getInitialState() {
+	        return { renderDisplay: true };
 	    },
-	    render: function render() {
+	    onClick: function onClick() {
+	        this.setState({ renderDisplay: true });
+	    },
+	    aboutUs: function aboutUs() {
+	        this.setState({ renderDisplay: false });
+	    },
+	    renderDisplay: function renderDisplay() {
+	        console.log(TechCrunchApi);
 	        return React.createElement(
 	            'div',
-	            { id: 'MainPage', className: 'main-page' },
+	            { className: 'mainPageWrapper' },
 	            React.createElement(
 	                'h1',
 	                null,
 	                'GlobeTech'
 	            ),
 	            React.createElement(
-	                'h2',
-	                null,
-	                'Take a look at our brilliant news links below!'
-	            ),
-	            React.createElement(
-	                'button',
-	                { key: 'tech-crunch', className: 'btn btn-success test', onClick: this.onClick },
-	                'TechCrunch'
-	            ),
-	            React.createElement(
-	                'button',
-	                { className: 'btn btn-warning', onClick: this.onClick },
-	                'The Verge'
-	            ),
-	            React.createElement(
-	                'button',
-	                { key: 'recode', className: 'btn btn-danger test-test', onClick: this.onClick },
-	                'Recode'
-	            ),
-	            React.createElement(
-	                'button',
-	                { className: 'btn btn-primary', onClick: this.onClick },
-	                'Mashable'
-	            ),
-	            React.createElement(
-	                'button',
-	                { className: 'btn btn-default', onClick: this.onClick },
-	                'TechRadar'
+	                'div',
+	                { className: 'mainPageContainer' },
+	                React.createElement(
+	                    'h2',
+	                    { className: 'mainPageSub' },
+	                    'Take a look at our brilliant news links below!'
+	                ),
+	                React.createElement(
+	                    'button',
+	                    { className: 'btn btn-default', onClick: this.aboutUs },
+	                    ' About Us '
+	                ),
+	                React.createElement(
+	                    'div',
+	                    { className: 'col-xs-12' },
+	                    React.createElement(
+	                        'div',
+	                        { className: 'techButtons col-lg-4 col-md-4 col-sm-4 col-xs-12' },
+	                        React.createElement(
+	                            'button',
+	                            { className: 'btn btn-success', 'data-toggle': 'collapse', 'data-target': '#crunch' },
+	                            'TechCrunch'
+	                        ),
+	                        React.createElement(
+	                            'div',
+	                            { className: 'collapse', id: 'crunch' },
+	                            React.createElement(
+	                                'div',
+	                                { className: 'well' },
+	                                React.createElement('img', { className: 'img-responsive', src: './images/crunch.png' })
+	                            )
+	                        )
+	                    ),
+	                    React.createElement(
+	                        'div',
+	                        { className: 'techButtons col-lg-4 col-md-4 col-sm-4 col-xs-12' },
+	                        React.createElement(
+	                            'button',
+	                            { className: 'btn btn-warning', 'data-toggle': 'collapse', 'data-target': '#verge' },
+	                            'The Verge'
+	                        ),
+	                        React.createElement(
+	                            'div',
+	                            { className: 'collapse', id: 'verge' },
+	                            React.createElement(
+	                                'div',
+	                                { className: 'well' },
+	                                React.createElement('img', { className: 'img-responsive', src: './images/verge.png' })
+	                            )
+	                        )
+	                    ),
+	                    React.createElement(
+	                        'div',
+	                        { className: 'techButtons col-lg-4 col-md-4 col-sm-4 col-xs-12' },
+	                        React.createElement(
+	                            'button',
+	                            { className: 'btn btn-danger', 'data-toggle': 'collapse', 'data-target': '#recode' },
+	                            'Recode'
+	                        ),
+	                        React.createElement(
+	                            'div',
+	                            { className: 'collapse', id: 'recode' },
+	                            React.createElement(
+	                                'div',
+	                                { className: 'well' },
+	                                React.createElement('img', { className: 'img-responsive', src: './images/Recode.png' })
+	                            )
+	                        )
+	                    ),
+	                    React.createElement(
+	                        'div',
+	                        { className: 'techButtons col-lg-6 col-md-6 col-sm-6 col-xs-12' },
+	                        React.createElement(
+	                            'button',
+	                            { className: 'btn btn-primary', 'data-toggle': 'collapse', 'data-target': '#mash' },
+	                            'Mashable'
+	                        ),
+	                        React.createElement(
+	                            'div',
+	                            { className: 'collapse', id: 'mash' },
+	                            React.createElement(
+	                                'div',
+	                                { className: 'well' },
+	                                React.createElement('img', { className: 'img-responsive', src: './images/mashable.png' })
+	                            )
+	                        )
+	                    ),
+	                    React.createElement(
+	                        'div',
+	                        { className: 'techButtons col-lg-6 col-md-6 col-sm-6 col-xs-12' },
+	                        React.createElement(
+	                            'button',
+	                            { className: 'btn btn-default', 'data-toggle': 'collapse', 'data-target': '#techradar' },
+	                            'TechRadar'
+	                        ),
+	                        React.createElement(
+	                            'div',
+	                            { className: 'collapse', id: 'techradar' },
+	                            React.createElement(
+	                                'div',
+	                                { className: 'well' },
+	                                React.createElement('img', { className: 'img-responsive', src: './images/TechRadar.png' })
+	                            )
+	                        )
+	                    )
+	                )
 	            )
 	        );
+	    },
+	    renderAbout: function renderAbout() {
+	        return React.createElement(
+	            'div',
+	            { className: 'aboutContainer' },
+	            React.createElement(
+	                'h2',
+	                null,
+	                'About Our App'
+	            ),
+	            React.createElement(
+	                'div',
+	                { className: 'mainPageContainer' },
+	                React.createElement(
+	                    'button',
+	                    { className: 'btn btn-default backButton', onClick: this.onClick },
+	                    ' BACK '
+	                ),
+	                React.createElement(
+	                    'h3',
+	                    null,
+	                    'GlobeTech brings you all the latest tech news from around the globe. It is mobile optimized and super quick because it is built in React, a coding library used by none other than FaceBook. We utilize the latest CSS techniques by using Bootstrap and use clever one page trickery so you never leave the first page... In fact there is only one page. Neat right. '
+	                )
+	            )
+	        );
+	    },
+	    render: function render() {
+	        if (this.state.renderDisplay) {
+	            return this.renderDisplay();
+	        } else {
+	            return this.renderAbout();
+	        }
 	    }
 	});
+	
+	//tech crunch api call and function to render page
+	
+	// var TechCrunchApi = function () {
+	//         var url = 'https://newsapi.org/v1/articles?source=techcrunch&sortBy=top&apiKey=9e6d16842a6b4368b4937a31ccf54035';
+	//         console.log("here");
+	//         return fetch(url).then(function(response) {
+	//             console.log(response);
+	//             if (response.status < 200 || response.status >= 300) {
+	//                 var error = new Error(response.statusText)
+	//                 error.response = response
+	//                 throw error;
+	//             }
+	//             // return response;
+	//         })
+	//         // .then(function(response) {
+	//         //     return response.json();
+	//         // })
+	// };
+	
+	
+	// var TechCrunchApi = function() {
+	//     return function(dispatch) {
+	//         var url = 'https://newsapi.org/v1/articles?source=techcrunch&sortBy=top&apiKey=9e6d16842a6b4368b4937a31ccf54035';
+	//          console.log("here");
+	//         return fetch(url).then(function(response) {
+	//             console.log(response);
+	//             if (response.status < 200 || response.status >= 300) {
+	//                 var error = new Error(response.statusText)
+	//                 error.response = response
+	//                 throw error;
+	//             }
+	//             return response;
+	//         })
+	//         .then(function(response) {
+	//             return response.json();
+	//         })
+	//         .then(function(data) {
+	//             var description = data.description;
+	//             return dispatch(
+	//                 // TechCrunchApiSuccess(description)
+	//             );
+	//         })
+	//         .catch(function(error) {
+	//             return dispatch(
+	//                 // TechCrunchApiError(error)
+	//             );
+	//         });
+	//     }
+	// };
+	
+	// // exports.TechCrunchApi = TechCrunchApi;    
+	
 	
 	//find ids and renders DOM
 	
@@ -22404,46 +22610,455 @@
 /* 186 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-	
-	var React = __webpack_require__(1);
-	var ReactDOM = __webpack_require__(34);
-	
-	// array to store the images
-	
-	var techLogos = ['./images/verge.png', './images/mashable.png', './images/Recode.png', './images/TechRadar.png'];
-	
-	// var FrontLogos = function (Logos) {
-	//             return (
-	//                 <div> {Logos} </div>
-	//                 );
-	//             };
-	
-	// loop for logos
-	
-	var FrontLogos = function FrontLogos(techLogos) {
-	    // var techLogos =  ['./images/verge.png', './images/mashable.png', './images/Recode.png', './images/TechRadar.png'];
-	    // var outPut = '';
-	    // for (var i=0; i < techLogos.length; i++) {
-	    // outPut.push(FrontLogos());
-	    // }
-	    // return (techLogos);
-	    var outPut = "";
-	    for (var i = 0; i < techLogos.length; i++) {
-	        setTimeout(function () {
-	            FrontLogos(i);
-	        }, 1000);
-	        outPut = techLogos[i];
-	    }
-	    // return techLogos[0];
-	    return outPut;
-	};
-	
-	module.exports = FrontLogos(techLogos);
-	// module.exports = techLogos;
+	// the whatwg-fetch polyfill installs the fetch() function
+	// on the global object (window or self)
+	//
+	// Return that as the export for use in Webpack, Browserify etc.
+	__webpack_require__(187);
+	module.exports = self.fetch.bind(self);
+
 
 /***/ },
 /* 187 */
+/***/ function(module, exports) {
+
+	(function(self) {
+	  'use strict';
+	
+	  if (self.fetch) {
+	    return
+	  }
+	
+	  var support = {
+	    searchParams: 'URLSearchParams' in self,
+	    iterable: 'Symbol' in self && 'iterator' in Symbol,
+	    blob: 'FileReader' in self && 'Blob' in self && (function() {
+	      try {
+	        new Blob()
+	        return true
+	      } catch(e) {
+	        return false
+	      }
+	    })(),
+	    formData: 'FormData' in self,
+	    arrayBuffer: 'ArrayBuffer' in self
+	  }
+	
+	  function normalizeName(name) {
+	    if (typeof name !== 'string') {
+	      name = String(name)
+	    }
+	    if (/[^a-z0-9\-#$%&'*+.\^_`|~]/i.test(name)) {
+	      throw new TypeError('Invalid character in header field name')
+	    }
+	    return name.toLowerCase()
+	  }
+	
+	  function normalizeValue(value) {
+	    if (typeof value !== 'string') {
+	      value = String(value)
+	    }
+	    return value
+	  }
+	
+	  // Build a destructive iterator for the value list
+	  function iteratorFor(items) {
+	    var iterator = {
+	      next: function() {
+	        var value = items.shift()
+	        return {done: value === undefined, value: value}
+	      }
+	    }
+	
+	    if (support.iterable) {
+	      iterator[Symbol.iterator] = function() {
+	        return iterator
+	      }
+	    }
+	
+	    return iterator
+	  }
+	
+	  function Headers(headers) {
+	    this.map = {}
+	
+	    if (headers instanceof Headers) {
+	      headers.forEach(function(value, name) {
+	        this.append(name, value)
+	      }, this)
+	
+	    } else if (headers) {
+	      Object.getOwnPropertyNames(headers).forEach(function(name) {
+	        this.append(name, headers[name])
+	      }, this)
+	    }
+	  }
+	
+	  Headers.prototype.append = function(name, value) {
+	    name = normalizeName(name)
+	    value = normalizeValue(value)
+	    var list = this.map[name]
+	    if (!list) {
+	      list = []
+	      this.map[name] = list
+	    }
+	    list.push(value)
+	  }
+	
+	  Headers.prototype['delete'] = function(name) {
+	    delete this.map[normalizeName(name)]
+	  }
+	
+	  Headers.prototype.get = function(name) {
+	    var values = this.map[normalizeName(name)]
+	    return values ? values[0] : null
+	  }
+	
+	  Headers.prototype.getAll = function(name) {
+	    return this.map[normalizeName(name)] || []
+	  }
+	
+	  Headers.prototype.has = function(name) {
+	    return this.map.hasOwnProperty(normalizeName(name))
+	  }
+	
+	  Headers.prototype.set = function(name, value) {
+	    this.map[normalizeName(name)] = [normalizeValue(value)]
+	  }
+	
+	  Headers.prototype.forEach = function(callback, thisArg) {
+	    Object.getOwnPropertyNames(this.map).forEach(function(name) {
+	      this.map[name].forEach(function(value) {
+	        callback.call(thisArg, value, name, this)
+	      }, this)
+	    }, this)
+	  }
+	
+	  Headers.prototype.keys = function() {
+	    var items = []
+	    this.forEach(function(value, name) { items.push(name) })
+	    return iteratorFor(items)
+	  }
+	
+	  Headers.prototype.values = function() {
+	    var items = []
+	    this.forEach(function(value) { items.push(value) })
+	    return iteratorFor(items)
+	  }
+	
+	  Headers.prototype.entries = function() {
+	    var items = []
+	    this.forEach(function(value, name) { items.push([name, value]) })
+	    return iteratorFor(items)
+	  }
+	
+	  if (support.iterable) {
+	    Headers.prototype[Symbol.iterator] = Headers.prototype.entries
+	  }
+	
+	  function consumed(body) {
+	    if (body.bodyUsed) {
+	      return Promise.reject(new TypeError('Already read'))
+	    }
+	    body.bodyUsed = true
+	  }
+	
+	  function fileReaderReady(reader) {
+	    return new Promise(function(resolve, reject) {
+	      reader.onload = function() {
+	        resolve(reader.result)
+	      }
+	      reader.onerror = function() {
+	        reject(reader.error)
+	      }
+	    })
+	  }
+	
+	  function readBlobAsArrayBuffer(blob) {
+	    var reader = new FileReader()
+	    reader.readAsArrayBuffer(blob)
+	    return fileReaderReady(reader)
+	  }
+	
+	  function readBlobAsText(blob) {
+	    var reader = new FileReader()
+	    reader.readAsText(blob)
+	    return fileReaderReady(reader)
+	  }
+	
+	  function Body() {
+	    this.bodyUsed = false
+	
+	    this._initBody = function(body) {
+	      this._bodyInit = body
+	      if (typeof body === 'string') {
+	        this._bodyText = body
+	      } else if (support.blob && Blob.prototype.isPrototypeOf(body)) {
+	        this._bodyBlob = body
+	      } else if (support.formData && FormData.prototype.isPrototypeOf(body)) {
+	        this._bodyFormData = body
+	      } else if (support.searchParams && URLSearchParams.prototype.isPrototypeOf(body)) {
+	        this._bodyText = body.toString()
+	      } else if (!body) {
+	        this._bodyText = ''
+	      } else if (support.arrayBuffer && ArrayBuffer.prototype.isPrototypeOf(body)) {
+	        // Only support ArrayBuffers for POST method.
+	        // Receiving ArrayBuffers happens via Blobs, instead.
+	      } else {
+	        throw new Error('unsupported BodyInit type')
+	      }
+	
+	      if (!this.headers.get('content-type')) {
+	        if (typeof body === 'string') {
+	          this.headers.set('content-type', 'text/plain;charset=UTF-8')
+	        } else if (this._bodyBlob && this._bodyBlob.type) {
+	          this.headers.set('content-type', this._bodyBlob.type)
+	        } else if (support.searchParams && URLSearchParams.prototype.isPrototypeOf(body)) {
+	          this.headers.set('content-type', 'application/x-www-form-urlencoded;charset=UTF-8')
+	        }
+	      }
+	    }
+	
+	    if (support.blob) {
+	      this.blob = function() {
+	        var rejected = consumed(this)
+	        if (rejected) {
+	          return rejected
+	        }
+	
+	        if (this._bodyBlob) {
+	          return Promise.resolve(this._bodyBlob)
+	        } else if (this._bodyFormData) {
+	          throw new Error('could not read FormData body as blob')
+	        } else {
+	          return Promise.resolve(new Blob([this._bodyText]))
+	        }
+	      }
+	
+	      this.arrayBuffer = function() {
+	        return this.blob().then(readBlobAsArrayBuffer)
+	      }
+	
+	      this.text = function() {
+	        var rejected = consumed(this)
+	        if (rejected) {
+	          return rejected
+	        }
+	
+	        if (this._bodyBlob) {
+	          return readBlobAsText(this._bodyBlob)
+	        } else if (this._bodyFormData) {
+	          throw new Error('could not read FormData body as text')
+	        } else {
+	          return Promise.resolve(this._bodyText)
+	        }
+	      }
+	    } else {
+	      this.text = function() {
+	        var rejected = consumed(this)
+	        return rejected ? rejected : Promise.resolve(this._bodyText)
+	      }
+	    }
+	
+	    if (support.formData) {
+	      this.formData = function() {
+	        return this.text().then(decode)
+	      }
+	    }
+	
+	    this.json = function() {
+	      return this.text().then(JSON.parse)
+	    }
+	
+	    return this
+	  }
+	
+	  // HTTP methods whose capitalization should be normalized
+	  var methods = ['DELETE', 'GET', 'HEAD', 'OPTIONS', 'POST', 'PUT']
+	
+	  function normalizeMethod(method) {
+	    var upcased = method.toUpperCase()
+	    return (methods.indexOf(upcased) > -1) ? upcased : method
+	  }
+	
+	  function Request(input, options) {
+	    options = options || {}
+	    var body = options.body
+	    if (Request.prototype.isPrototypeOf(input)) {
+	      if (input.bodyUsed) {
+	        throw new TypeError('Already read')
+	      }
+	      this.url = input.url
+	      this.credentials = input.credentials
+	      if (!options.headers) {
+	        this.headers = new Headers(input.headers)
+	      }
+	      this.method = input.method
+	      this.mode = input.mode
+	      if (!body) {
+	        body = input._bodyInit
+	        input.bodyUsed = true
+	      }
+	    } else {
+	      this.url = input
+	    }
+	
+	    this.credentials = options.credentials || this.credentials || 'omit'
+	    if (options.headers || !this.headers) {
+	      this.headers = new Headers(options.headers)
+	    }
+	    this.method = normalizeMethod(options.method || this.method || 'GET')
+	    this.mode = options.mode || this.mode || null
+	    this.referrer = null
+	
+	    if ((this.method === 'GET' || this.method === 'HEAD') && body) {
+	      throw new TypeError('Body not allowed for GET or HEAD requests')
+	    }
+	    this._initBody(body)
+	  }
+	
+	  Request.prototype.clone = function() {
+	    return new Request(this)
+	  }
+	
+	  function decode(body) {
+	    var form = new FormData()
+	    body.trim().split('&').forEach(function(bytes) {
+	      if (bytes) {
+	        var split = bytes.split('=')
+	        var name = split.shift().replace(/\+/g, ' ')
+	        var value = split.join('=').replace(/\+/g, ' ')
+	        form.append(decodeURIComponent(name), decodeURIComponent(value))
+	      }
+	    })
+	    return form
+	  }
+	
+	  function headers(xhr) {
+	    var head = new Headers()
+	    var pairs = (xhr.getAllResponseHeaders() || '').trim().split('\n')
+	    pairs.forEach(function(header) {
+	      var split = header.trim().split(':')
+	      var key = split.shift().trim()
+	      var value = split.join(':').trim()
+	      head.append(key, value)
+	    })
+	    return head
+	  }
+	
+	  Body.call(Request.prototype)
+	
+	  function Response(bodyInit, options) {
+	    if (!options) {
+	      options = {}
+	    }
+	
+	    this.type = 'default'
+	    this.status = options.status
+	    this.ok = this.status >= 200 && this.status < 300
+	    this.statusText = options.statusText
+	    this.headers = options.headers instanceof Headers ? options.headers : new Headers(options.headers)
+	    this.url = options.url || ''
+	    this._initBody(bodyInit)
+	  }
+	
+	  Body.call(Response.prototype)
+	
+	  Response.prototype.clone = function() {
+	    return new Response(this._bodyInit, {
+	      status: this.status,
+	      statusText: this.statusText,
+	      headers: new Headers(this.headers),
+	      url: this.url
+	    })
+	  }
+	
+	  Response.error = function() {
+	    var response = new Response(null, {status: 0, statusText: ''})
+	    response.type = 'error'
+	    return response
+	  }
+	
+	  var redirectStatuses = [301, 302, 303, 307, 308]
+	
+	  Response.redirect = function(url, status) {
+	    if (redirectStatuses.indexOf(status) === -1) {
+	      throw new RangeError('Invalid status code')
+	    }
+	
+	    return new Response(null, {status: status, headers: {location: url}})
+	  }
+	
+	  self.Headers = Headers
+	  self.Request = Request
+	  self.Response = Response
+	
+	  self.fetch = function(input, init) {
+	    return new Promise(function(resolve, reject) {
+	      var request
+	      if (Request.prototype.isPrototypeOf(input) && !init) {
+	        request = input
+	      } else {
+	        request = new Request(input, init)
+	      }
+	
+	      var xhr = new XMLHttpRequest()
+	
+	      function responseURL() {
+	        if ('responseURL' in xhr) {
+	          return xhr.responseURL
+	        }
+	
+	        // Avoid security warnings on getResponseHeader when not allowed by CORS
+	        if (/^X-Request-URL:/m.test(xhr.getAllResponseHeaders())) {
+	          return xhr.getResponseHeader('X-Request-URL')
+	        }
+	
+	        return
+	      }
+	
+	      xhr.onload = function() {
+	        var options = {
+	          status: xhr.status,
+	          statusText: xhr.statusText,
+	          headers: headers(xhr),
+	          url: responseURL()
+	        }
+	        var body = 'response' in xhr ? xhr.response : xhr.responseText
+	        resolve(new Response(body, options))
+	      }
+	
+	      xhr.onerror = function() {
+	        reject(new TypeError('Network request failed'))
+	      }
+	
+	      xhr.ontimeout = function() {
+	        reject(new TypeError('Network request failed'))
+	      }
+	
+	      xhr.open(request.method, request.url, true)
+	
+	      if (request.credentials === 'include') {
+	        xhr.withCredentials = true
+	      }
+	
+	      if ('responseType' in xhr && support.blob) {
+	        xhr.responseType = 'blob'
+	      }
+	
+	      request.headers.forEach(function(value, name) {
+	        xhr.setRequestHeader(name, value)
+	      })
+	
+	      xhr.send(typeof request._bodyInit === 'undefined' ? null : request._bodyInit)
+	    })
+	  }
+	  self.fetch.polyfill = true
+	})(typeof self !== 'undefined' ? self : this);
+
+
+/***/ },
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22451,10 +23066,10 @@
 	/* global $ */
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(34);
-	var Request = __webpack_require__(188);
+	var Request = __webpack_require__(189);
 	var redux = __webpack_require__(172);
 	// var fetch = require('node-fetch');
-	var fetch = __webpack_require__(193);
+	var fetch = __webpack_require__(186);
 	
 	// Api call from TechCrunch
 	
@@ -22472,9 +23087,32 @@
 	//     },
 	// }
 	
-	var TechCrunch = function TechCrunch(data) {
-	    return function () {
+	// var TechCrunch = function (data) {
+	//     return function() {
+	//         var url = 'https://newsapi.org/v1/articles?source=techcrunch&sortBy=top&apiKey=9e6d16842a6b4368b4937a31ccf54035';
+	//         return fetch(url).then(function(response) {
+	//             console.log(response);
+	//             if (response.status < 200 || response.status >= 300) {
+	//                 var error = new Error(response.statusText)
+	//                 error.response = response
+	//                 throw error;
+	//             }
+	//             return response;
+	//         })
+	//         .then(function(response) {
+	//             return response.json();
+	//         })
+	//     };
+	// };
+	
+	
+	// module.exports = TechCrunch;
+	
+	
+	var TechCrunchApi = function TechCrunchApi() {
+	    return function (dispatch) {
 	        var url = 'https://newsapi.org/v1/articles?source=techcrunch&sortBy=top&apiKey=9e6d16842a6b4368b4937a31ccf54035';
+	        console.log("here");
 	        return fetch(url).then(function (response) {
 	            console.log(response);
 	            if (response.status < 200 || response.status >= 300) {
@@ -22485,14 +23123,19 @@
 	            return response;
 	        }).then(function (response) {
 	            return response.json();
+	        }).then(function (data) {
+	            var description = data.description;
+	            return dispatch();
+	        }).catch(function (error) {
+	            return dispatch();
 	        });
 	    };
 	};
 	
-	module.exports = TechCrunch;
+	exports.TechCrunchApi = TechCrunchApi;
 
 /***/ },
-/* 188 */
+/* 189 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -22509,9 +23152,9 @@
 	  root = this;
 	}
 	
-	var Emitter = __webpack_require__(189);
-	var requestBase = __webpack_require__(190);
-	var isObject = __webpack_require__(191);
+	var Emitter = __webpack_require__(190);
+	var requestBase = __webpack_require__(191);
+	var isObject = __webpack_require__(192);
 	
 	/**
 	 * Noop.
@@ -22523,7 +23166,7 @@
 	 * Expose `request`.
 	 */
 	
-	var request = module.exports = __webpack_require__(192).bind(null, Request);
+	var request = module.exports = __webpack_require__(193).bind(null, Request);
 	
 	/**
 	 * Determine XHR.
@@ -23474,7 +24117,7 @@
 
 
 /***/ },
-/* 189 */
+/* 190 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -23643,13 +24286,13 @@
 
 
 /***/ },
-/* 190 */
+/* 191 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Module of mixed-in functions shared between node and client code
 	 */
-	var isObject = __webpack_require__(191);
+	var isObject = __webpack_require__(192);
 	
 	/**
 	 * Clear previous timeout.
@@ -24021,7 +24664,7 @@
 
 
 /***/ },
-/* 191 */
+/* 192 */
 /***/ function(module, exports) {
 
 	/**
@@ -24040,7 +24683,7 @@
 
 
 /***/ },
-/* 192 */
+/* 193 */
 /***/ function(module, exports) {
 
 	// The node and browser modules expose versions of this with the
@@ -24075,457 +24718,6 @@
 	}
 	
 	module.exports = request;
-
-
-/***/ },
-/* 193 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// the whatwg-fetch polyfill installs the fetch() function
-	// on the global object (window or self)
-	//
-	// Return that as the export for use in Webpack, Browserify etc.
-	__webpack_require__(194);
-	module.exports = self.fetch.bind(self);
-
-
-/***/ },
-/* 194 */
-/***/ function(module, exports) {
-
-	(function(self) {
-	  'use strict';
-	
-	  if (self.fetch) {
-	    return
-	  }
-	
-	  var support = {
-	    searchParams: 'URLSearchParams' in self,
-	    iterable: 'Symbol' in self && 'iterator' in Symbol,
-	    blob: 'FileReader' in self && 'Blob' in self && (function() {
-	      try {
-	        new Blob()
-	        return true
-	      } catch(e) {
-	        return false
-	      }
-	    })(),
-	    formData: 'FormData' in self,
-	    arrayBuffer: 'ArrayBuffer' in self
-	  }
-	
-	  function normalizeName(name) {
-	    if (typeof name !== 'string') {
-	      name = String(name)
-	    }
-	    if (/[^a-z0-9\-#$%&'*+.\^_`|~]/i.test(name)) {
-	      throw new TypeError('Invalid character in header field name')
-	    }
-	    return name.toLowerCase()
-	  }
-	
-	  function normalizeValue(value) {
-	    if (typeof value !== 'string') {
-	      value = String(value)
-	    }
-	    return value
-	  }
-	
-	  // Build a destructive iterator for the value list
-	  function iteratorFor(items) {
-	    var iterator = {
-	      next: function() {
-	        var value = items.shift()
-	        return {done: value === undefined, value: value}
-	      }
-	    }
-	
-	    if (support.iterable) {
-	      iterator[Symbol.iterator] = function() {
-	        return iterator
-	      }
-	    }
-	
-	    return iterator
-	  }
-	
-	  function Headers(headers) {
-	    this.map = {}
-	
-	    if (headers instanceof Headers) {
-	      headers.forEach(function(value, name) {
-	        this.append(name, value)
-	      }, this)
-	
-	    } else if (headers) {
-	      Object.getOwnPropertyNames(headers).forEach(function(name) {
-	        this.append(name, headers[name])
-	      }, this)
-	    }
-	  }
-	
-	  Headers.prototype.append = function(name, value) {
-	    name = normalizeName(name)
-	    value = normalizeValue(value)
-	    var list = this.map[name]
-	    if (!list) {
-	      list = []
-	      this.map[name] = list
-	    }
-	    list.push(value)
-	  }
-	
-	  Headers.prototype['delete'] = function(name) {
-	    delete this.map[normalizeName(name)]
-	  }
-	
-	  Headers.prototype.get = function(name) {
-	    var values = this.map[normalizeName(name)]
-	    return values ? values[0] : null
-	  }
-	
-	  Headers.prototype.getAll = function(name) {
-	    return this.map[normalizeName(name)] || []
-	  }
-	
-	  Headers.prototype.has = function(name) {
-	    return this.map.hasOwnProperty(normalizeName(name))
-	  }
-	
-	  Headers.prototype.set = function(name, value) {
-	    this.map[normalizeName(name)] = [normalizeValue(value)]
-	  }
-	
-	  Headers.prototype.forEach = function(callback, thisArg) {
-	    Object.getOwnPropertyNames(this.map).forEach(function(name) {
-	      this.map[name].forEach(function(value) {
-	        callback.call(thisArg, value, name, this)
-	      }, this)
-	    }, this)
-	  }
-	
-	  Headers.prototype.keys = function() {
-	    var items = []
-	    this.forEach(function(value, name) { items.push(name) })
-	    return iteratorFor(items)
-	  }
-	
-	  Headers.prototype.values = function() {
-	    var items = []
-	    this.forEach(function(value) { items.push(value) })
-	    return iteratorFor(items)
-	  }
-	
-	  Headers.prototype.entries = function() {
-	    var items = []
-	    this.forEach(function(value, name) { items.push([name, value]) })
-	    return iteratorFor(items)
-	  }
-	
-	  if (support.iterable) {
-	    Headers.prototype[Symbol.iterator] = Headers.prototype.entries
-	  }
-	
-	  function consumed(body) {
-	    if (body.bodyUsed) {
-	      return Promise.reject(new TypeError('Already read'))
-	    }
-	    body.bodyUsed = true
-	  }
-	
-	  function fileReaderReady(reader) {
-	    return new Promise(function(resolve, reject) {
-	      reader.onload = function() {
-	        resolve(reader.result)
-	      }
-	      reader.onerror = function() {
-	        reject(reader.error)
-	      }
-	    })
-	  }
-	
-	  function readBlobAsArrayBuffer(blob) {
-	    var reader = new FileReader()
-	    reader.readAsArrayBuffer(blob)
-	    return fileReaderReady(reader)
-	  }
-	
-	  function readBlobAsText(blob) {
-	    var reader = new FileReader()
-	    reader.readAsText(blob)
-	    return fileReaderReady(reader)
-	  }
-	
-	  function Body() {
-	    this.bodyUsed = false
-	
-	    this._initBody = function(body) {
-	      this._bodyInit = body
-	      if (typeof body === 'string') {
-	        this._bodyText = body
-	      } else if (support.blob && Blob.prototype.isPrototypeOf(body)) {
-	        this._bodyBlob = body
-	      } else if (support.formData && FormData.prototype.isPrototypeOf(body)) {
-	        this._bodyFormData = body
-	      } else if (support.searchParams && URLSearchParams.prototype.isPrototypeOf(body)) {
-	        this._bodyText = body.toString()
-	      } else if (!body) {
-	        this._bodyText = ''
-	      } else if (support.arrayBuffer && ArrayBuffer.prototype.isPrototypeOf(body)) {
-	        // Only support ArrayBuffers for POST method.
-	        // Receiving ArrayBuffers happens via Blobs, instead.
-	      } else {
-	        throw new Error('unsupported BodyInit type')
-	      }
-	
-	      if (!this.headers.get('content-type')) {
-	        if (typeof body === 'string') {
-	          this.headers.set('content-type', 'text/plain;charset=UTF-8')
-	        } else if (this._bodyBlob && this._bodyBlob.type) {
-	          this.headers.set('content-type', this._bodyBlob.type)
-	        } else if (support.searchParams && URLSearchParams.prototype.isPrototypeOf(body)) {
-	          this.headers.set('content-type', 'application/x-www-form-urlencoded;charset=UTF-8')
-	        }
-	      }
-	    }
-	
-	    if (support.blob) {
-	      this.blob = function() {
-	        var rejected = consumed(this)
-	        if (rejected) {
-	          return rejected
-	        }
-	
-	        if (this._bodyBlob) {
-	          return Promise.resolve(this._bodyBlob)
-	        } else if (this._bodyFormData) {
-	          throw new Error('could not read FormData body as blob')
-	        } else {
-	          return Promise.resolve(new Blob([this._bodyText]))
-	        }
-	      }
-	
-	      this.arrayBuffer = function() {
-	        return this.blob().then(readBlobAsArrayBuffer)
-	      }
-	
-	      this.text = function() {
-	        var rejected = consumed(this)
-	        if (rejected) {
-	          return rejected
-	        }
-	
-	        if (this._bodyBlob) {
-	          return readBlobAsText(this._bodyBlob)
-	        } else if (this._bodyFormData) {
-	          throw new Error('could not read FormData body as text')
-	        } else {
-	          return Promise.resolve(this._bodyText)
-	        }
-	      }
-	    } else {
-	      this.text = function() {
-	        var rejected = consumed(this)
-	        return rejected ? rejected : Promise.resolve(this._bodyText)
-	      }
-	    }
-	
-	    if (support.formData) {
-	      this.formData = function() {
-	        return this.text().then(decode)
-	      }
-	    }
-	
-	    this.json = function() {
-	      return this.text().then(JSON.parse)
-	    }
-	
-	    return this
-	  }
-	
-	  // HTTP methods whose capitalization should be normalized
-	  var methods = ['DELETE', 'GET', 'HEAD', 'OPTIONS', 'POST', 'PUT']
-	
-	  function normalizeMethod(method) {
-	    var upcased = method.toUpperCase()
-	    return (methods.indexOf(upcased) > -1) ? upcased : method
-	  }
-	
-	  function Request(input, options) {
-	    options = options || {}
-	    var body = options.body
-	    if (Request.prototype.isPrototypeOf(input)) {
-	      if (input.bodyUsed) {
-	        throw new TypeError('Already read')
-	      }
-	      this.url = input.url
-	      this.credentials = input.credentials
-	      if (!options.headers) {
-	        this.headers = new Headers(input.headers)
-	      }
-	      this.method = input.method
-	      this.mode = input.mode
-	      if (!body) {
-	        body = input._bodyInit
-	        input.bodyUsed = true
-	      }
-	    } else {
-	      this.url = input
-	    }
-	
-	    this.credentials = options.credentials || this.credentials || 'omit'
-	    if (options.headers || !this.headers) {
-	      this.headers = new Headers(options.headers)
-	    }
-	    this.method = normalizeMethod(options.method || this.method || 'GET')
-	    this.mode = options.mode || this.mode || null
-	    this.referrer = null
-	
-	    if ((this.method === 'GET' || this.method === 'HEAD') && body) {
-	      throw new TypeError('Body not allowed for GET or HEAD requests')
-	    }
-	    this._initBody(body)
-	  }
-	
-	  Request.prototype.clone = function() {
-	    return new Request(this)
-	  }
-	
-	  function decode(body) {
-	    var form = new FormData()
-	    body.trim().split('&').forEach(function(bytes) {
-	      if (bytes) {
-	        var split = bytes.split('=')
-	        var name = split.shift().replace(/\+/g, ' ')
-	        var value = split.join('=').replace(/\+/g, ' ')
-	        form.append(decodeURIComponent(name), decodeURIComponent(value))
-	      }
-	    })
-	    return form
-	  }
-	
-	  function headers(xhr) {
-	    var head = new Headers()
-	    var pairs = (xhr.getAllResponseHeaders() || '').trim().split('\n')
-	    pairs.forEach(function(header) {
-	      var split = header.trim().split(':')
-	      var key = split.shift().trim()
-	      var value = split.join(':').trim()
-	      head.append(key, value)
-	    })
-	    return head
-	  }
-	
-	  Body.call(Request.prototype)
-	
-	  function Response(bodyInit, options) {
-	    if (!options) {
-	      options = {}
-	    }
-	
-	    this.type = 'default'
-	    this.status = options.status
-	    this.ok = this.status >= 200 && this.status < 300
-	    this.statusText = options.statusText
-	    this.headers = options.headers instanceof Headers ? options.headers : new Headers(options.headers)
-	    this.url = options.url || ''
-	    this._initBody(bodyInit)
-	  }
-	
-	  Body.call(Response.prototype)
-	
-	  Response.prototype.clone = function() {
-	    return new Response(this._bodyInit, {
-	      status: this.status,
-	      statusText: this.statusText,
-	      headers: new Headers(this.headers),
-	      url: this.url
-	    })
-	  }
-	
-	  Response.error = function() {
-	    var response = new Response(null, {status: 0, statusText: ''})
-	    response.type = 'error'
-	    return response
-	  }
-	
-	  var redirectStatuses = [301, 302, 303, 307, 308]
-	
-	  Response.redirect = function(url, status) {
-	    if (redirectStatuses.indexOf(status) === -1) {
-	      throw new RangeError('Invalid status code')
-	    }
-	
-	    return new Response(null, {status: status, headers: {location: url}})
-	  }
-	
-	  self.Headers = Headers
-	  self.Request = Request
-	  self.Response = Response
-	
-	  self.fetch = function(input, init) {
-	    return new Promise(function(resolve, reject) {
-	      var request
-	      if (Request.prototype.isPrototypeOf(input) && !init) {
-	        request = input
-	      } else {
-	        request = new Request(input, init)
-	      }
-	
-	      var xhr = new XMLHttpRequest()
-	
-	      function responseURL() {
-	        if ('responseURL' in xhr) {
-	          return xhr.responseURL
-	        }
-	
-	        // Avoid security warnings on getResponseHeader when not allowed by CORS
-	        if (/^X-Request-URL:/m.test(xhr.getAllResponseHeaders())) {
-	          return xhr.getResponseHeader('X-Request-URL')
-	        }
-	
-	        return
-	      }
-	
-	      xhr.onload = function() {
-	        var options = {
-	          status: xhr.status,
-	          statusText: xhr.statusText,
-	          headers: headers(xhr),
-	          url: responseURL()
-	        }
-	        var body = 'response' in xhr ? xhr.response : xhr.responseText
-	        resolve(new Response(body, options))
-	      }
-	
-	      xhr.onerror = function() {
-	        reject(new TypeError('Network request failed'))
-	      }
-	
-	      xhr.ontimeout = function() {
-	        reject(new TypeError('Network request failed'))
-	      }
-	
-	      xhr.open(request.method, request.url, true)
-	
-	      if (request.credentials === 'include') {
-	        xhr.withCredentials = true
-	      }
-	
-	      if ('responseType' in xhr && support.blob) {
-	        xhr.responseType = 'blob'
-	      }
-	
-	      request.headers.forEach(function(value, name) {
-	        xhr.setRequestHeader(name, value)
-	      })
-	
-	      xhr.send(typeof request._bodyInit === 'undefined' ? null : request._bodyInit)
-	    })
-	  }
-	  self.fetch.polyfill = true
-	})(typeof self !== 'undefined' ? self : this);
 
 
 /***/ }

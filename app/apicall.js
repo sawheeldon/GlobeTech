@@ -22,9 +22,32 @@ var fetch  = require('isomorphic-fetch');
 //     },
 // }
 
-var TechCrunch = function (data) {
-    return function() {
+// var TechCrunch = function (data) {
+//     return function() {
+//         var url = 'https://newsapi.org/v1/articles?source=techcrunch&sortBy=top&apiKey=9e6d16842a6b4368b4937a31ccf54035';
+//         return fetch(url).then(function(response) {
+//             console.log(response);
+//             if (response.status < 200 || response.status >= 300) {
+//                 var error = new Error(response.statusText)
+//                 error.response = response
+//                 throw error;
+//             }
+//             return response;
+//         })
+//         .then(function(response) {
+//             return response.json();
+//         })
+//     };
+// };
+    
+
+// module.exports = TechCrunch;
+
+
+var TechCrunchApi = function() {
+    return function(dispatch) {
         var url = 'https://newsapi.org/v1/articles?source=techcrunch&sortBy=top&apiKey=9e6d16842a6b4368b4937a31ccf54035';
+         console.log("here");
         return fetch(url).then(function(response) {
             console.log(response);
             if (response.status < 200 || response.status >= 300) {
@@ -37,8 +60,18 @@ var TechCrunch = function (data) {
         .then(function(response) {
             return response.json();
         })
-    };
+        .then(function(data) {
+            var description = data.description;
+            return dispatch(
+                // TechCrunchApiSuccess(description)
+            );
+        })
+        .catch(function(error) {
+            return dispatch(
+                // TechCrunchApiError(error)
+            );
+        });
+    }
 };
-    
 
-module.exports = TechCrunch;
+exports.TechCrunchApi = TechCrunchApi;  
