@@ -52,7 +52,10 @@
 	var redux = __webpack_require__(172);
 	// var FrontLogos = require('./app/logos');
 	var fetch = __webpack_require__(186);
-	var TechCrunchApi = __webpack_require__(188);
+	var TitlePage = __webpack_require__(194);
+	var MainPage = __webpack_require__(195);
+	// var TheVerge = require('./app/verge.js');
+	
 	
 	//app function which shows the first page setting the state of the first button
 	
@@ -87,315 +90,6 @@
 	        );
 	    }
 	});
-	
-	//title page function which creates the title page content
-	
-	var TitlePage = React.createClass({
-	    displayName: 'TitlePage',
-	
-	    render: function render() {
-	        return React.createElement(
-	            'div',
-	            { className: 'container col-xs-12 titlePage' },
-	            React.createElement(
-	                'h1',
-	                null,
-	                'GlobeTech'
-	            ),
-	            React.createElement(
-	                'h2',
-	                null,
-	                'Your one stop shop for all news tech!'
-	            ),
-	            React.createElement('div', { className: 'col-lg-4 col-md-4 col-sm-4 col-xs-12' }),
-	            React.createElement(
-	                'div',
-	                { className: 'col-lg-4 col-md-4 col-sm-4 col-xs-12' },
-	                React.createElement(
-	                    'div',
-	                    { id: 'my-slider', className: 'carousel slide', 'data-ride': 'carousel' },
-	                    React.createElement(
-	                        'div',
-	                        { className: 'carousel-inner' },
-	                        React.createElement(
-	                            'div',
-	                            { className: 'item active rotating-item' },
-	                            React.createElement('img', { src: './images/crunch.png', alt: '' })
-	                        ),
-	                        React.createElement(
-	                            'div',
-	                            { className: 'item rotating-item' },
-	                            React.createElement('img', { src: './images/verge.png', alt: '' })
-	                        ),
-	                        React.createElement(
-	                            'div',
-	                            { className: 'item rotating-item' },
-	                            React.createElement('img', { src: './images/Recode.png', alt: '' })
-	                        ),
-	                        React.createElement(
-	                            'div',
-	                            { className: 'item rotating-item' },
-	                            React.createElement('img', { src: './images/mashable.png', alt: '' })
-	                        ),
-	                        React.createElement(
-	                            'div',
-	                            { className: 'item rotating-item' },
-	                            React.createElement('img', { src: './images/TechRadar.png', alt: '' })
-	                        )
-	                    )
-	                )
-	            ),
-	            React.createElement('div', { className: 'col-lg-4 col-md-4 col-sm-4 col-xs-12' })
-	        );
-	    }
-	});
-	
-	// main page function which shows and hides all the pages.
-	
-	var MainPage = React.createClass({
-	    displayName: 'MainPage',
-	
-	    getInitialState: function getInitialState() {
-	        return {
-	            renderDisplay: true
-	        };
-	    },
-	    componentDidMount: function componentDidMount() {
-	        fetch('https://newsapi.org/v1/articles?source=techcrunch&sortBy=top&apiKey=9e6d16842a6b4368b4937a31ccf54035').then(function (response) {
-	            if (response.status >= 400) {
-	                throw new Error("Bad response from server");
-	            }
-	            return response.json();
-	        }).then(function (data) {
-	            console.log(data);
-	            var itemResults = ' <div class="col-xs-12  TechCrunchNewsResponse" id="latestCrunchNewsTitle">' + data.articles[1].title + '</div>';
-	            itemResults += ' <div class="col-xs-12 TechCrunchNewsResponse" id="latestCrunchNewsOne">' + data.articles[1].description + '</div>';
-	            itemResults += '<div class="col-xs-12 TechCrunchNewsResponse" id="latestCrunchNewsTwo">' + data.articles[2].description + '</div>';
-	            itemResults += '<div class="col-xs-12 TechCrunchNewsResponse" id="latestCrunchNewsThree">' + data.articles[3].description + '</div>';
-	            itemResults += '<div class="col-xs-12 TechCrunchNewsResponse" id="latestCrunchNewsFour">' + data.articles[4].description + '</div>';
-	            itemResults += '<div class="col-xs-12 TechCrunchNewsResponse" id="latestCrunchNewsFive">' + data.articles[5].description + '</div>';
-	            $('#TechCrunchNewsWell').html(itemResults);
-	            // this.setState({ articles: data.articles});
-	            // {this.state.data.map(function(article) {
-	            //                                         return <li>article</li>;
-	            //                                     })}
-	        });
-	    },
-	    onClick: function onClick() {
-	        this.setState({ renderDisplay: true });
-	    },
-	    aboutUs: function aboutUs() {
-	        this.setState({ renderDisplay: false });
-	    },
-	    renderDisplay: function renderDisplay() {
-	        // console.log(TechCrunchApi);
-	        return React.createElement(
-	            'div',
-	            { className: 'mainPageWrapper' },
-	            React.createElement(
-	                'h1',
-	                null,
-	                'GlobeTech'
-	            ),
-	            React.createElement(
-	                'div',
-	                { className: 'mainPageContainer' },
-	                React.createElement(
-	                    'h2',
-	                    { className: 'mainPageSub' },
-	                    'Take a look at our brilliant news links below!'
-	                ),
-	                React.createElement(
-	                    'button',
-	                    { className: 'btn btn-default', onClick: this.aboutUs },
-	                    ' About Us '
-	                ),
-	                React.createElement(
-	                    'div',
-	                    { className: 'col-xs-12' },
-	                    React.createElement(
-	                        'div',
-	                        { className: 'techButtons col-lg-4 col-md-4 col-sm-4 col-xs-12' },
-	                        React.createElement(
-	                            'button',
-	                            { className: 'btn btn-success', 'data-toggle': 'collapse', 'data-target': '#crunch' },
-	                            'TechCrunch'
-	                        ),
-	                        React.createElement(
-	                            'div',
-	                            { className: 'collapse', id: 'crunch' },
-	                            React.createElement(
-	                                'div',
-	                                { className: 'well' },
-	                                React.createElement('img', { className: 'img-responsive', src: './images/crunch.png' }),
-	                                React.createElement('div', { id: 'TechCrunchNewsWell' })
-	                            )
-	                        )
-	                    ),
-	                    React.createElement(
-	                        'div',
-	                        { className: 'techButtons col-lg-4 col-md-4 col-sm-4 col-xs-12' },
-	                        React.createElement(
-	                            'button',
-	                            { className: 'btn btn-warning', 'data-toggle': 'collapse', 'data-target': '#verge' },
-	                            'The Verge'
-	                        ),
-	                        React.createElement(
-	                            'div',
-	                            { className: 'collapse', id: 'verge' },
-	                            React.createElement(
-	                                'div',
-	                                { className: 'well' },
-	                                React.createElement('img', { className: 'img-responsive', src: './images/verge.png' })
-	                            )
-	                        )
-	                    ),
-	                    React.createElement(
-	                        'div',
-	                        { className: 'techButtons col-lg-4 col-md-4 col-sm-4 col-xs-12' },
-	                        React.createElement(
-	                            'button',
-	                            { className: 'btn btn-danger', 'data-toggle': 'collapse', 'data-target': '#recode' },
-	                            'Recode'
-	                        ),
-	                        React.createElement(
-	                            'div',
-	                            { className: 'collapse', id: 'recode' },
-	                            React.createElement(
-	                                'div',
-	                                { className: 'well' },
-	                                React.createElement('img', { className: 'img-responsive', src: './images/Recode.png' })
-	                            )
-	                        )
-	                    ),
-	                    React.createElement(
-	                        'div',
-	                        { className: 'techButtons col-lg-6 col-md-6 col-sm-6 col-xs-12' },
-	                        React.createElement(
-	                            'button',
-	                            { className: 'btn btn-primary', 'data-toggle': 'collapse', 'data-target': '#mash' },
-	                            'Mashable'
-	                        ),
-	                        React.createElement(
-	                            'div',
-	                            { className: 'collapse', id: 'mash' },
-	                            React.createElement(
-	                                'div',
-	                                { className: 'well' },
-	                                React.createElement('img', { className: 'img-responsive', src: './images/mashable.png' })
-	                            )
-	                        )
-	                    ),
-	                    React.createElement(
-	                        'div',
-	                        { className: 'techButtons col-lg-6 col-md-6 col-sm-6 col-xs-12' },
-	                        React.createElement(
-	                            'button',
-	                            { className: 'btn btn-default', 'data-toggle': 'collapse', 'data-target': '#techradar' },
-	                            'TechRadar'
-	                        ),
-	                        React.createElement(
-	                            'div',
-	                            { className: 'collapse', id: 'techradar' },
-	                            React.createElement(
-	                                'div',
-	                                { className: 'well' },
-	                                React.createElement('img', { className: 'img-responsive', src: './images/TechRadar.png' })
-	                            )
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    },
-	    renderAbout: function renderAbout() {
-	        return React.createElement(
-	            'div',
-	            { className: 'aboutContainer' },
-	            React.createElement(
-	                'h2',
-	                null,
-	                'About Our App'
-	            ),
-	            React.createElement(
-	                'div',
-	                { className: 'mainPageContainer' },
-	                React.createElement(
-	                    'button',
-	                    { className: 'btn btn-default backButton', onClick: this.onClick },
-	                    ' BACK '
-	                ),
-	                React.createElement(
-	                    'h3',
-	                    null,
-	                    'GlobeTech brings you all the latest tech news from around the globe. It is mobile optimized and super quick because it is built in React, a coding library used by none other than FaceBook. We utilize the latest CSS techniques by using Bootstrap and use clever one page trickery so you never leave the first page... In fact there is only one page. Neat right. '
-	                )
-	            )
-	        );
-	    },
-	    render: function render() {
-	        if (this.state.renderDisplay) {
-	            return this.renderDisplay();
-	        } else {
-	            return this.renderAbout();
-	        }
-	    }
-	});
-	
-	//tech crunch api call and function to render page
-	
-	// var TechCrunchApi = function () {
-	//         var url = 'https://newsapi.org/v1/articles?source=techcrunch&sortBy=top&apiKey=9e6d16842a6b4368b4937a31ccf54035';
-	//         console.log("here");
-	//         return fetch(url).then(function(response) {
-	//             console.log(response);
-	//             if (response.status < 200 || response.status >= 300) {
-	//                 var error = new Error(response.statusText)
-	//                 error.response = response
-	//                 throw error;
-	//             }
-	//             // return response;
-	//         })
-	//         // .then(function(response) {
-	//         //     return response.json();
-	//         // })
-	// };
-	
-	
-	// var TechCrunchApi = function() {
-	//     return function(dispatch) {
-	//         var url = 'https://newsapi.org/v1/articles?source=techcrunch&sortBy=top&apiKey=9e6d16842a6b4368b4937a31ccf54035';
-	//          console.log("here");
-	//         return fetch(url).then(function(response) {
-	//             console.log(response);
-	//             if (response.status < 200 || response.status >= 300) {
-	//                 var error = new Error(response.statusText)
-	//                 error.response = response
-	//                 throw error;
-	//             }
-	//             return response;
-	//         })
-	//         .then(function(response) {
-	//             return response.json();
-	//         })
-	//         .then(function(data) {
-	//             var description = data.description;
-	//             return dispatch(
-	//                 // TechCrunchApiSuccess(description)
-	//             );
-	//         })
-	//         .catch(function(error) {
-	//             return dispatch(
-	//                 // TechCrunchApiError(error)
-	//             );
-	//         });
-	//     }
-	// };
-	
-	// // exports.TechCrunchApi = TechCrunchApi;    
-	
-	
-	//find ids and renders DOM
 	
 	document.addEventListener('DOMContentLoaded', function () {
 	    ReactDOM.render(React.createElement(App, null), document.getElementById('PageWrapper'));
@@ -23083,84 +22777,7 @@
 
 
 /***/ },
-/* 188 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	/* global $ */
-	var React = __webpack_require__(1);
-	var ReactDOM = __webpack_require__(34);
-	var Request = __webpack_require__(189);
-	var redux = __webpack_require__(172);
-	// var fetch = require('node-fetch');
-	var fetch = __webpack_require__(186);
-	
-	// Api call from TechCrunch
-	
-	// var TechCrunch = function (data) {
-	//     return function (data) {
-	//         var url = 'https://newsapi.org/v1/articles?source=techcrunch&sortBy=top&apiKey=9e6d16842a6b4368b4937a31ccf54035';
-	//         $.ajax({
-	//              type:'GET',
-	//              url:url ,
-	//              success: function(data) {
-	//                  console.log("success"data);
-	//              };
-	//         });
-	
-	//     },
-	// }
-	
-	// var TechCrunch = function (data) {
-	//     return function() {
-	//         var url = 'https://newsapi.org/v1/articles?source=techcrunch&sortBy=top&apiKey=9e6d16842a6b4368b4937a31ccf54035';
-	//         return fetch(url).then(function(response) {
-	//             console.log(response);
-	//             if (response.status < 200 || response.status >= 300) {
-	//                 var error = new Error(response.statusText)
-	//                 error.response = response
-	//                 throw error;
-	//             }
-	//             return response;
-	//         })
-	//         .then(function(response) {
-	//             return response.json();
-	//         })
-	//     };
-	// };
-	
-	
-	// module.exports = TechCrunch;
-	
-	
-	var TechCrunchApi = function TechCrunchApi() {
-	    return function (dispatch) {
-	        var url = 'https://newsapi.org/v1/articles?source=techcrunch&sortBy=top&apiKey=9e6d16842a6b4368b4937a31ccf54035';
-	        //  console.log("here");
-	        return fetch(url).then(function (response) {
-	            // console.log(response);
-	            if (response.status < 200 || response.status >= 300) {
-	                var error = new Error(response.statusText);
-	                error.response = response;
-	                throw error;
-	            }
-	            return response;
-	        }).then(function (response) {
-	            return response.json();
-	        }).then(function (data) {
-	            console.log(data);
-	            var description = data.description;
-	            return dispatch();
-	        }).catch(function (error) {
-	            return dispatch();
-	        });
-	    };
-	};
-	
-	exports.TechCrunchApi = TechCrunchApi;
-
-/***/ },
+/* 188 */,
 /* 189 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -24745,6 +24362,288 @@
 	
 	module.exports = request;
 
+
+/***/ },
+/* 194 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	/* global $ */
+	var React = __webpack_require__(1);
+	var ReactDOM = __webpack_require__(34);
+	var Request = __webpack_require__(189);
+	
+	//title page function which creates the title page content
+	var TitlePage = React.createClass({
+	    displayName: 'TitlePage',
+	
+	    render: function render() {
+	        return React.createElement(
+	            'div',
+	            { className: 'container col-xs-12 titlePage' },
+	            React.createElement(
+	                'h1',
+	                null,
+	                'GlobeTech'
+	            ),
+	            React.createElement(
+	                'h2',
+	                null,
+	                'Your one stop shop for all news tech!'
+	            ),
+	            React.createElement('div', { className: 'col-lg-4 col-md-4 col-sm-4 col-xs-12' }),
+	            React.createElement(
+	                'div',
+	                { className: 'col-lg-4 col-md-4 col-sm-4 col-xs-12' },
+	                React.createElement(
+	                    'div',
+	                    { id: 'my-slider', className: 'carousel slide', 'data-ride': 'carousel' },
+	                    React.createElement(
+	                        'div',
+	                        { className: 'carousel-inner logosFrontPage' },
+	                        React.createElement(
+	                            'div',
+	                            { className: 'item active rotating-item' },
+	                            React.createElement('img', { src: './images/crunch.png', alt: '' })
+	                        ),
+	                        React.createElement(
+	                            'div',
+	                            { className: 'item rotating-item' },
+	                            React.createElement('img', { src: './images/verge.png', alt: '' })
+	                        ),
+	                        React.createElement(
+	                            'div',
+	                            { className: 'item rotating-item' },
+	                            React.createElement('img', { src: './images/Recode.png', alt: '' })
+	                        ),
+	                        React.createElement(
+	                            'div',
+	                            { className: 'item rotating-item' },
+	                            React.createElement('img', { src: './images/mashable.png', alt: '' })
+	                        ),
+	                        React.createElement(
+	                            'div',
+	                            { className: 'item rotating-item' },
+	                            React.createElement('img', { src: './images/TechRadar.png', alt: '' })
+	                        )
+	                    )
+	                )
+	            ),
+	            React.createElement('div', { className: 'col-lg-4 col-md-4 col-sm-4 col-xs-12' })
+	        );
+	    }
+	});
+	
+	module.exports = TitlePage;
+
+/***/ },
+/* 195 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	/* global $ */
+	
+	var React = __webpack_require__(1);
+	var ReactDOM = __webpack_require__(34);
+	var fetch = __webpack_require__(186);
+	// var TheVerge = require('./app/verge.js');
+	
+	// main page function which shows and hides all the pages.
+	
+	var MainPage = React.createClass({
+	    displayName: 'MainPage',
+	
+	    getInitialState: function getInitialState() {
+	        return {
+	            renderDisplay: true
+	        };
+	    },
+	    componentDidMount: function componentDidMount() {
+	        fetch('https://newsapi.org/v1/articles?source=techcrunch&sortBy=top&apiKey=9e6d16842a6b4368b4937a31ccf54035').then(function (response) {
+	            if (response.status >= 400) {
+	                throw new Error("Bad response from server");
+	            }
+	            return response.json();
+	        }).then(function (data) {
+	            console.log(data);
+	            var itemResults = ' <div class="col-xs-12  NewsResponseTitle" id="latestCrunchNewsTitle">' + data.articles[1].title + '</div>';
+	            itemResults += ' <div class="col-xs-12 NewsResponse" id="latestCrunchNewsOne">' + data.articles[1].description + '</div>';
+	            itemResults += '<div class="col-xs-12 NewsResponse" id="latestCrunchNewsTwo">' + data.articles[2].description + '</div>';
+	            itemResults += '<div class="col-xs-12 NewsResponse" id="latestCrunchNewsThree">' + data.articles[3].description + '</div>';
+	            itemResults += '<div class="col-xs-12 NewsResponse" id="latestCrunchNewsFour">' + data.articles[4].description + '</div>';
+	            itemResults += '<div class="col-xs-12 NewsResponse" id="latestCrunchNewsFive">' + data.articles[5].description + '</div>';
+	            $('#TechCrunchNewsWell').html(itemResults);
+	            // this.setState({ articles: data.articles});
+	            // {this.state.data.map(function(article) {
+	            //                                         return <li>article</li>;
+	            //                                     })}
+	        });
+	    },
+	    onClick: function onClick() {
+	        this.setState({ renderDisplay: true });
+	    },
+	    aboutUs: function aboutUs() {
+	        this.setState({ renderDisplay: false });
+	    },
+	    renderDisplay: function renderDisplay() {
+	        // console.log(TechCrunchApi);
+	        return React.createElement(
+	            'div',
+	            { className: 'mainPageWrapper' },
+	            React.createElement(
+	                'h1',
+	                null,
+	                'GlobeTech'
+	            ),
+	            React.createElement(
+	                'div',
+	                { className: 'mainPageContainer' },
+	                React.createElement(
+	                    'h2',
+	                    { className: 'mainPageSub' },
+	                    'Take a look at our brilliant news links below!'
+	                ),
+	                React.createElement(
+	                    'button',
+	                    { className: 'btn btn-default', onClick: this.aboutUs },
+	                    ' About Us '
+	                ),
+	                React.createElement(
+	                    'div',
+	                    { className: 'col-xs-12' },
+	                    React.createElement(
+	                        'div',
+	                        { className: 'techButtons col-lg-4 col-md-4 col-sm-4 col-xs-12' },
+	                        React.createElement(
+	                            'button',
+	                            { className: 'btn btn-success', 'data-toggle': 'collapse', 'data-target': '#crunch' },
+	                            'TechCrunch'
+	                        ),
+	                        React.createElement(
+	                            'div',
+	                            { className: 'collapse', id: 'crunch' },
+	                            React.createElement(
+	                                'div',
+	                                { className: 'well' },
+	                                React.createElement('img', { className: 'img-responsive', src: './images/crunch.png' }),
+	                                React.createElement('div', { id: 'TechCrunchNewsWell' })
+	                            )
+	                        )
+	                    ),
+	                    React.createElement(
+	                        'div',
+	                        { className: 'techButtons col-lg-4 col-md-4 col-sm-4 col-xs-12' },
+	                        React.createElement(
+	                            'button',
+	                            { className: 'btn btn-warning', 'data-toggle': 'collapse', 'data-target': '#verge' },
+	                            'The Verge'
+	                        ),
+	                        React.createElement(
+	                            'div',
+	                            { className: 'collapse', id: 'verge' },
+	                            React.createElement(
+	                                'div',
+	                                { className: 'well' },
+	                                React.createElement('img', { className: 'img-responsive', src: './images/verge.png' }),
+	                                React.createElement('div', { id: 'TheVergeNewsWell' })
+	                            )
+	                        )
+	                    ),
+	                    React.createElement(
+	                        'div',
+	                        { className: 'techButtons col-lg-4 col-md-4 col-sm-4 col-xs-12' },
+	                        React.createElement(
+	                            'button',
+	                            { className: 'btn btn-danger', 'data-toggle': 'collapse', 'data-target': '#recode' },
+	                            'Recode'
+	                        ),
+	                        React.createElement(
+	                            'div',
+	                            { className: 'collapse', id: 'recode' },
+	                            React.createElement(
+	                                'div',
+	                                { className: 'well' },
+	                                React.createElement('img', { className: 'img-responsive', src: './images/Recode.png' })
+	                            )
+	                        )
+	                    ),
+	                    React.createElement(
+	                        'div',
+	                        { className: 'techButtons col-lg-6 col-md-6 col-sm-6 col-xs-12' },
+	                        React.createElement(
+	                            'button',
+	                            { className: 'btn btn-primary', 'data-toggle': 'collapse', 'data-target': '#mash' },
+	                            'Mashable'
+	                        ),
+	                        React.createElement(
+	                            'div',
+	                            { className: 'collapse', id: 'mash' },
+	                            React.createElement(
+	                                'div',
+	                                { className: 'well' },
+	                                React.createElement('img', { className: 'img-responsive', src: './images/mashable.png' })
+	                            )
+	                        )
+	                    ),
+	                    React.createElement(
+	                        'div',
+	                        { className: 'techButtons col-lg-6 col-md-6 col-sm-6 col-xs-12' },
+	                        React.createElement(
+	                            'button',
+	                            { className: 'btn btn-default', 'data-toggle': 'collapse', 'data-target': '#techradar' },
+	                            'TechRadar'
+	                        ),
+	                        React.createElement(
+	                            'div',
+	                            { className: 'collapse', id: 'techradar' },
+	                            React.createElement(
+	                                'div',
+	                                { className: 'well' },
+	                                React.createElement('img', { className: 'img-responsive', src: './images/TechRadar.png' })
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    },
+	    renderAbout: function renderAbout() {
+	        return React.createElement(
+	            'div',
+	            { className: 'aboutContainer' },
+	            React.createElement(
+	                'h2',
+	                null,
+	                'About Our App'
+	            ),
+	            React.createElement(
+	                'div',
+	                { className: 'mainPageContainer' },
+	                React.createElement(
+	                    'button',
+	                    { className: 'btn btn-default backButton', onClick: this.onClick },
+	                    ' BACK '
+	                ),
+	                React.createElement(
+	                    'h3',
+	                    null,
+	                    'GlobeTech brings you all the latest tech news from around the globe. It is mobile optimized and super quick because it is built in React, a coding library used by none other than FaceBook. We utilize the latest CSS techniques by using Bootstrap and use clever one page trickery so you never leave the first page... In fact there is only one page. Neat right. '
+	                )
+	            )
+	        );
+	    },
+	    render: function render() {
+	        if (this.state.renderDisplay) {
+	            return this.renderDisplay();
+	        } else {
+	            return this.renderAbout();
+	        }
+	    }
+	});
+	
+	module.exports = MainPage;
 
 /***/ }
 /******/ ]);
