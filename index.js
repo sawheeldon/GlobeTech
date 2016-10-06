@@ -1,3 +1,4 @@
+/* global $ */
 var React = require('react');
 var ReactDOM = require('react-dom');
 var redux = require('redux');
@@ -61,7 +62,33 @@ var TitlePage = React.createClass({
 
 var MainPage = React.createClass({
     getInitialState: function() {
-        return { renderDisplay: true };
+        return { 
+            renderDisplay: true, 
+            // articles: []
+        };
+    },
+    componentDidMount: function(){
+       fetch('https://newsapi.org/v1/articles?source=techcrunch&sortBy=top&apiKey=9e6d16842a6b4368b4937a31ccf54035')
+            .then(function(response) {
+        if (response.status >= 400) {
+            throw new Error("Bad response from server");
+        }
+        return response.json();
+    })
+    .then(function(data) {
+        console.log(data);
+        var itemResults = ' <div class="col-xs-12  TechCrunchNewsResponse" id="latestCrunchNewsTitle">'+ data.articles[1].title +'</div>';
+            itemResults += ' <div class="col-xs-12 TechCrunchNewsResponse" id="latestCrunchNewsOne">'+ data.articles[1].description +'</div>';
+            itemResults += '<div class="col-xs-12 TechCrunchNewsResponse" id="latestCrunchNewsTwo">'+ data.articles[2].description +'</div>';
+            itemResults += '<div class="col-xs-12 TechCrunchNewsResponse" id="latestCrunchNewsThree">'+ data.articles[3].description +'</div>';
+            itemResults += '<div class="col-xs-12 TechCrunchNewsResponse" id="latestCrunchNewsFour">'+ data.articles[4].description +'</div>';
+            itemResults += '<div class="col-xs-12 TechCrunchNewsResponse" id="latestCrunchNewsFive">'+ data.articles[5].description +'</div>';
+        $('#TechCrunchNewsWell').html(itemResults);    
+        // this.setState({ articles: data.articles});
+        // {this.state.data.map(function(article) {
+        //                                         return <li>article</li>;
+        //                                     })}
+    }); 
     },
     onClick: function (){
         this.setState({ renderDisplay: true });
@@ -70,7 +97,7 @@ var MainPage = React.createClass({
         this.setState({ renderDisplay:false});
     },
     renderDisplay: function() {
-        console.log(TechCrunchApi);
+        // console.log(TechCrunchApi);
         return (
             <div className="mainPageWrapper">
                 <h1>GlobeTech</h1>
@@ -83,6 +110,7 @@ var MainPage = React.createClass({
                                     <div className="collapse" id="crunch"> 
                                         <div className="well">
                                             <img className="img-responsive"  src="./images/crunch.png" />
+                                            <div id="TechCrunchNewsWell"></div>
                                         </div> 
                                     </div>
                             </div> 

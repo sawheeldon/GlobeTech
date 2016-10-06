@@ -46,6 +46,7 @@
 
 	'use strict';
 	
+	/* global $ */
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(34);
 	var redux = __webpack_require__(172);
@@ -155,7 +156,30 @@
 	    displayName: 'MainPage',
 	
 	    getInitialState: function getInitialState() {
-	        return { renderDisplay: true };
+	        return {
+	            renderDisplay: true
+	        };
+	    },
+	    componentDidMount: function componentDidMount() {
+	        fetch('https://newsapi.org/v1/articles?source=techcrunch&sortBy=top&apiKey=9e6d16842a6b4368b4937a31ccf54035').then(function (response) {
+	            if (response.status >= 400) {
+	                throw new Error("Bad response from server");
+	            }
+	            return response.json();
+	        }).then(function (data) {
+	            console.log(data);
+	            var itemResults = ' <div class="col-xs-12  TechCrunchNewsResponse" id="latestCrunchNewsTitle">' + data.articles[1].title + '</div>';
+	            itemResults += ' <div class="col-xs-12 TechCrunchNewsResponse" id="latestCrunchNewsOne">' + data.articles[1].description + '</div>';
+	            itemResults += '<div class="col-xs-12 TechCrunchNewsResponse" id="latestCrunchNewsTwo">' + data.articles[2].description + '</div>';
+	            itemResults += '<div class="col-xs-12 TechCrunchNewsResponse" id="latestCrunchNewsThree">' + data.articles[3].description + '</div>';
+	            itemResults += '<div class="col-xs-12 TechCrunchNewsResponse" id="latestCrunchNewsFour">' + data.articles[4].description + '</div>';
+	            itemResults += '<div class="col-xs-12 TechCrunchNewsResponse" id="latestCrunchNewsFive">' + data.articles[5].description + '</div>';
+	            $('#TechCrunchNewsWell').html(itemResults);
+	            // this.setState({ articles: data.articles});
+	            // {this.state.data.map(function(article) {
+	            //                                         return <li>article</li>;
+	            //                                     })}
+	        });
 	    },
 	    onClick: function onClick() {
 	        this.setState({ renderDisplay: true });
@@ -164,7 +188,7 @@
 	        this.setState({ renderDisplay: false });
 	    },
 	    renderDisplay: function renderDisplay() {
-	        console.log(TechCrunchApi);
+	        // console.log(TechCrunchApi);
 	        return React.createElement(
 	            'div',
 	            { className: 'mainPageWrapper' },
@@ -203,7 +227,8 @@
 	                            React.createElement(
 	                                'div',
 	                                { className: 'well' },
-	                                React.createElement('img', { className: 'img-responsive', src: './images/crunch.png' })
+	                                React.createElement('img', { className: 'img-responsive', src: './images/crunch.png' }),
+	                                React.createElement('div', { id: 'TechCrunchNewsWell' })
 	                            )
 	                        )
 	                    ),
@@ -23112,9 +23137,9 @@
 	var TechCrunchApi = function TechCrunchApi() {
 	    return function (dispatch) {
 	        var url = 'https://newsapi.org/v1/articles?source=techcrunch&sortBy=top&apiKey=9e6d16842a6b4368b4937a31ccf54035';
-	        console.log("here");
+	        //  console.log("here");
 	        return fetch(url).then(function (response) {
-	            console.log(response);
+	            // console.log(response);
 	            if (response.status < 200 || response.status >= 300) {
 	                var error = new Error(response.statusText);
 	                error.response = response;
@@ -23124,6 +23149,7 @@
 	        }).then(function (response) {
 	            return response.json();
 	        }).then(function (data) {
+	            console.log(data);
 	            var description = data.description;
 	            return dispatch();
 	        }).catch(function (error) {
